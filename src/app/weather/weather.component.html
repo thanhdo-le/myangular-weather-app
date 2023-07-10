@@ -1,0 +1,50 @@
+<div class="container">
+  <!-- Search form -->
+  <div class="search">
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="city"
+          placeholder="Search city"
+          name="city"
+        />
+      </span>
+      <p-button label="Search" type="submit"></p-button>
+      <p-button (click)="clearLocalStorage()">Clear Storage</p-button>
+    </form>
+  </div>
+
+  <div class="card-container">
+    <ng-container *ngIf="weatherData.length > 0; else noDataTemplate">
+      <p-card
+        *ngFor="let weather of weatherData"
+        [header]="weather.city"
+        class="text-center"
+        [style]="{ width: '20rem' }"
+        (click)="onSelect(weather.city)"
+        [routerLink]="['/city-detail']"
+      >
+        <ng-template pTemplate="header">
+          <img
+            src="{{ weather.iconURL }}"
+            alt="weather image"
+            style="width: 6rem; height: 6rem"
+          />
+        </ng-template>
+        <hr />
+        <ng-template pTemplate="footer">
+          <p>Summary: {{ weather.summary }}</p>
+          <p>Temperature: {{ weather.temperature }} °C</p>
+          <p>Pressure: {{ weather.pressure }} hPa</p>
+          <p>Humidity: {{ weather.humidity }} %</p>
+        </ng-template>
+      </p-card>
+    </ng-container>
+    <ng-template #noDataTemplate>
+      <p>No weather data available.</p>
+    </ng-template>
+  </div>
+</div>

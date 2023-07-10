@@ -1,0 +1,64 @@
+<p-card
+  *ngFor="let weather of weatherData"
+  header="{{ weather.city }}"
+  class="text-center"
+  [style]="{ width: '100%' }"
+>
+  <ng-template pTemplate="header">
+    <img
+      src="{{ weather.iconURL }}"
+      alt="weather image"
+      style="width: 6rem; height: 6rem"
+    />
+  </ng-template>
+  <h3>{{ weather.mainDes }}</h3>
+  <h4>Feels like: {{ weather.feelsLikeTemp }} °C</h4>
+  <hr />
+  <ng-template pTemplate="footer">
+    <div class="row">
+      <div class="col-sm-6">
+        <ul class="list-group">
+          <li class="list-group-item">
+            Description: {{ weather.description }}
+          </li>
+          <li class="list-group-item">
+            Min Temperature: {{ weather.tempMin }} °C
+          </li>
+          <li class="list-group-item">
+            Max Temperature: {{ weather.tempMax }} °C
+          </li>
+          <li class="list-group-item">Sunrise: {{ weather.sunRise }}</li>
+        </ul>
+      </div>
+      <div class="col-sm-6">
+        <ul class="list-group">
+          <li class="list-group-item">Pressure: {{ weather.pressure }} hPa</li>
+          <li class="list-group-item">Humidity: {{ weather.humidity }} %</li>
+          <li class="list-group-item">Wind: {{ weather.wind }} kmh</li>
+          <li class="list-group-item">Sunset: {{ weather.sunSet }}</li>
+        </ul>
+      </div>
+    </div>
+  </ng-template>
+</p-card>
+
+<p-card class="hour-forecast">
+  <div class="row">
+    <h3>Hourly Forecast</h3>
+    <div class="col" *ngFor="let forecast of hourlyForecastData">
+      <div class="time">
+        <p>{{ forecast.time | date : "shortTime" }}</p>
+        <hr />
+      </div>
+      <div class="temparature">{{ forecast.temperature }} °C</div>
+      <hr />
+      <div class="icon">
+        <img src="{{ forecast.iconURL }}" alt="icon" />
+      </div>
+      <div class="chance-of-rain">
+        <img src="../../assets/rain.png" alt="icon" />
+        {{ forecast.chanceOfRain }} %
+      </div>
+    </div>
+  </div>
+</p-card>
